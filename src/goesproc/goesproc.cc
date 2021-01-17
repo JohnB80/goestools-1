@@ -17,6 +17,7 @@
 #include "handler_goesr.h"
 #include "handler_himawari8.h"
 #include "handler_nws_image.h"
+#include "handler_dcs.h"
 #include "handler_nws_text.h"
 #include "handler_text.h"
 #include "options.h"
@@ -75,7 +76,8 @@ int main(int argc, char** argv) {
         handlers.push_back(
           std::unique_ptr<Handler>(
             new GOESNImageHandler(handler, fileWriter)));
-      } else {
+      }
+	else {
         std::cerr << "Invalid image handler origin: " << handler.origin << std::endl;
         exit(1);
       }
@@ -84,20 +86,22 @@ int main(int argc, char** argv) {
         std::unique_ptr<Handler>(
           new EMWINHandler(handler, fileWriter)));
     } else if (handler.type == "dcs") {
-      // TODO
+		handlers.push_back(
+			std::unique_ptr<Handler>(
+				new DCSTextHandler(handler, fileWriter)));
     } else if (handler.type == "text") {
-      if (handler.origin == "nws") {
-        handlers.push_back(
-          std::unique_ptr<Handler>(
-            new NWSTextHandler(handler, fileWriter)));
-      } else if (handler.origin == "other") {
-          handlers.push_back(
-            std::unique_ptr<Handler>(
-              new TextHandler(handler, fileWriter)));
-      } else {
-        std::cerr << "Invalid text handler product: " << handler.origin << std::endl;
-        exit(1);
-      }
+		if (handler.origin == "nws") {
+		handlers.push_back(
+			std::unique_ptr<Handler>(
+			new NWSTextHandler(handler, fileWriter)));
+		} else if (handler.origin == "other") {
+			handlers.push_back(
+			std::unique_ptr<Handler>(
+				new TextHandler(handler, fileWriter)));
+		} else {
+		std::cerr << "Invalid text handler product: " << handler.origin << std::endl;
+		exit(1);
+		}
     } else {
       std::cerr << "Invalid handler type: " << handler.type << std::endl;
       exit(1);
