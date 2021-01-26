@@ -116,7 +116,7 @@ int DCPData::readFrom(const char* buf, size_t len) {
         std::vector<uint8_t> tmp;
         tmp.resize(n);
         memcpy(tmp.data(), &buf[nread], n);
-        blocks[pos].sequence = tmp.at(0) | (tmp.at(1) << 8) | (tmp.at(1) << 16);
+        blocks[pos].sequence = tmp.at(0) | (tmp.at(1) << 8) | (tmp.at(2) << 16);
 
         nread += n;
       }
