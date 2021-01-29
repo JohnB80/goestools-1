@@ -7,40 +7,6 @@
 #include "string.h"
 #include "time.h"
 
-namespace {
-
-  // LB - Remove if not needed.
-//// Expect the file to be named like this:
-////
-////   16-TEXTdat_17348_201455.lrit
-////
-//bool goesrParseTextTime(const std::string& name, struct timespec& time) {
-//  auto pos = name.find('_');
-//  if (pos == std::string::npos) {
-//    return false;
-//  }
-//
-//  if (pos + 1 >= name.size()) {
-//    return false;
-//  }
-//
-//  const char* buf = name.c_str() + pos + 1;
-//  const char* format = "%y%j_%H%M%S";
-//  struct tm tm;
-//  auto ptr = strptime(buf, format, &tm);
-//
-//  // strptime was successful if it returned a pointer to the next char
-//  if (ptr == nullptr || ptr[0] != '.') {
-//    return false;
-//  }
-//
-//  time.tv_sec = mktime(&tm);
-//  time.tv_nsec = 0;
-//  return true;
-//}
-
-} // namespace
-
 DCSTextHandler::DCSTextHandler(
   const Config::Handler& config,
   const std::shared_ptr<FileWriter>& fileWriter)
